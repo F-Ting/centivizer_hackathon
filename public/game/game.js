@@ -1,4 +1,6 @@
 var audioContext;
+var socket = io('http://192.168.0.100:3000');
+
 try {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
 } catch (e) {
@@ -34,16 +36,23 @@ var movement = false;
 var correct = false;
 var answer;
 var ding;
+var slider_position = 30;
+var is_lever_down = false;
 var complete_jump = false;
+
+
+function act_on_position(position) {
+    slider_position = position;
+}
 
 function preload ()
 {
 
-    this.load.image('sky', './assets/background.png')
-    this.load.image('square', './assets/square.png');
-    this.load.image('circle', './assets/circle.png');
-    this.load.image('triangle', 'assets/triangle.png');
-    this.load.audio('ding', ['./assets/ding.mp3']);
+    this.load.image('sky', '../assets/background.png')
+    this.load.image('square', '../assets/square.png');
+    this.load.image('circle', '../assets/circle.png');
+    this.load.image('triangle', '../assets/triangle.png');
+    this.load.audio('ding', ['../assets/ding.mp3']);
 }
 
 function create ()
@@ -73,6 +82,7 @@ function update (){
     if (this.input.mouse.manager.activePointer.isDown){
         if (this.input.y<=150){
             if (this.input.x<=150){
+
                 if(answer == "circle"){
                     console.log(correct)
                     correct = true;
@@ -92,6 +102,27 @@ function update (){
                 }
             }
         }
+    }else if (is_lever_down) {
+            if (slider_position<=20){
+                if(answer == "circle"){
+                    console.log(correct)
+                    correct = true;
+                    movement = true;
+                }
+            }else if (slider_position <=40){
+                if (answer == "triangle"){
+                    console.log(correct)
+                    correct = true;
+                    movement = true;
+                }
+            }else if (slider_position<=70){
+                if (answer =="square"){
+                    console.log(correct)
+                    correct = true;
+                    movement = true;
+                }
+        }
+        is_lever_down = false;
     }
     var sprite={};
     if (correct){

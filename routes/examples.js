@@ -15,7 +15,7 @@ router.get('/slider', function(req, res, next) {
 });
 
 router.get('/mine', function(req, res, next) {
-  res.render('index.html');
+    res.render('index.html');
 });
 
 module.exports = router;

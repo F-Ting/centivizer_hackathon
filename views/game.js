@@ -19,6 +19,9 @@ var circle;
 var triangle;
 var square;
 var direction = true;
+var movement = true;
+var correct = true;
+var answer = "triangle";
 
 function preload ()
 {
@@ -42,19 +45,29 @@ function create ()
 
 function update ()
 {
-    cursors = this.input.keyboard.createCursorKeys();
-    if (cursors.up.isDown){
+    var sprite;
+    if (correct){
+        if (answer == "circle"){
+            sprite=circle;
+        }else if(answer=="square"){
+            sprite=square;
+        }else{
+            sprite=triangle;
+        }
+    }
+    if (movement){
+
         if (direction){
-            if (circle.y>=70){
-                circle.y-=3;
+            if (sprite.y>=70){
+                sprite.y-=3;
             }else{
                 direction =!direction;
             }
         }else{
-            if (circle.y>=100){
+            if (sprite.y>=100){
                 direction = !direction;
             }
-            circle.y+=3;
+            sprite.y+=3;
         }
     }
 }

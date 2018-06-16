@@ -36,10 +36,12 @@ var movement = false;
 var correct = false;
 var answer;
 var ding;
+var countdown;
 var slider_position = 30;
 var is_lever_down = false;
 var complete_jump = false;
 var arrow;
+var frame_rate = 300;
 
 
 function act_on_position(position) {
@@ -57,6 +59,7 @@ function preload ()
     this.load.image('arrow-left', '../assets/arrow-left.png');
     this.load.image('arrow-right', '../assets/arrow-right.png');
     this.load.audio('ding', ['../assets/ding.mp3']);
+    this.load.audio('countdown', ['../assets/countdown.mp3']);
 }
 
 function create ()
@@ -69,6 +72,7 @@ function create ()
     arrow = this.physics.add.sprite(400, 300, 'arrow');
 
     ding = this.sound.add('ding');
+    countdown = this.sound.add('countdown');
 
     var rand_num = Math.floor((Math.random() * 3));
     if (rand_num==0){
@@ -92,7 +96,8 @@ function update (){
     }else{
         arrow = this.physics.add.sprite(400, 300, 'arrow-right');
     }
-    if (this.input.mouse.manager.activePointer.isDown){
+    if (this.input.mouse.manager.activePointer.isDown && frame_rate==0){
+        rand_shape = this.physics.add.sprite(400, 500, answer);
         arrow.destroy();
         if (this.input.y<=150){
             if (this.input.x<=150){
@@ -118,7 +123,8 @@ function update (){
                 }
             }
         }
-    }else if (is_lever_down) {
+    }else if (is_lever_down && frame_rate==0) {
+        rand_shape = this.physics.add.sprite(400, 500, answer);
             if (slider_position<=20){
 
                 if(answer == "circle"){
@@ -143,6 +149,7 @@ function update (){
     }
     var sprite={};
     if (correct){
+        frame_rate=300;
         if (rand_shape.y>100){
             rand_shape.y-=16;
         }
@@ -180,7 +187,6 @@ function update (){
 
     if (complete_jump){
         complete_jump = false;
-        console.log("here");
         rand_shape.destroy();
         var rand_num = Math.floor((Math.random() * 3));
         if (rand_num==0){
@@ -193,14 +199,19 @@ function update (){
             rand_shape = this.physics.add.sprite(400, 500, 'square');
             answer = "square";
         }
-        console.log("here2")
         movement = false;
         correct = false;
         up_direction = true;
-        console.log(correct);
-
     }
 
+    if (frame_rate==0){
+        rand_shape.destroy();
+    }else{
+        frame_rate--;
+        if ((frame_rate%100)==0){
+            countdown.play();
+        }
+    }
 }
 
 function rand_sprite_generator(game){

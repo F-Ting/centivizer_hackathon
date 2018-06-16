@@ -109,13 +109,13 @@ function update (){
                     correct = true;
                     movement = true;
                 }
-            }else if (slider_position <=40){
+            }else if (slider_position <=45){
                 if (answer == "triangle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
-            }else if (slider_position<=70){
+            }else if (slider_position>40){
                 if (answer =="square"){
                     console.log(correct)
                     correct = true;

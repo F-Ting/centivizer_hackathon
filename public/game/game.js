@@ -108,7 +108,6 @@ function update (){
     }
     if (this.input.mouse.manager.activePointer.isDown && frame_rate==0){
         number.destroy();
-        num_tries++;
         rand_shape = this.physics.add.sprite(400, 500, answer);
         arrow.destroy();
         if (this.input.y<=150){
@@ -137,7 +136,6 @@ function update (){
         }
     }else if (is_lever_down && frame_rate==0) {
         number.destroy();
-        num_tries++;
         rand_shape = this.physics.add.sprite(400, 500, answer);
             if (slider_position<=20){
 
@@ -163,7 +161,6 @@ function update (){
     }
     var sprite={};
     if (correct){
-        num_correct++;
         frame_rate=300;
 
         if (rand_shape.y>100){
@@ -219,6 +216,7 @@ function update (){
         correct = false;
         up_direction = true;
         number = this.physics.add.sprite(400, 550, 'three');
+
     }
 
     if (frame_rate==0){

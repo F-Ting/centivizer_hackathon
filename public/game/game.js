@@ -84,6 +84,14 @@ function create ()
 }
 
 function update (){
+    arrow.destroy();
+    if (slider_position<=20){
+        arrow = this.physics.add.sprite(400, 300, 'arrow-left');
+    }else if (slider_position <=45){
+        arrow = this.physics.add.sprite(400, 300, 'arrow');
+    }else{
+        arrow = this.physics.add.sprite(400, 300, 'arrow-right');
+    }
     if (this.input.mouse.manager.activePointer.isDown){
         if (this.input.y<=150){
             if (this.input.x<=150){
@@ -108,23 +116,20 @@ function update (){
             }
         }
     }else if (is_lever_down) {
-        arrow.destroy();
             if (slider_position<=20){
-                arrow = this.physics.add.sprite(400, 300, 'arrow-left');
+
                 if(answer == "circle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
             }else if (slider_position <=45){
-                arrow = this.physics.add.sprite(400, 300, 'arrow');
                 if (answer == "triangle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
             }else if (slider_position>40){
-                arrow = this.physics.add.sprite(400, 300, 'arrow-right');
                 if (answer =="square"){
                     console.log(correct)
                     correct = true;

@@ -30,10 +30,11 @@ var triangle;
 var square;
 var rand_shape;
 var up_direction = true;
-var movement = true;
-var correct = true;
-var answer = "triangle";
+var movement = false;
+var correct = false;
+var answer;
 var ding;
+var complete_jump = false;
 
 function preload ()
 {
@@ -58,25 +59,51 @@ function create ()
     var rand_num = Math.floor((Math.random() * 3));
     if (rand_num==0){
         rand_shape = this.physics.add.sprite(400, 300, 'circle');
+        answer = "circle";
     }else if (rand_num==1){
         rand_shape = this.physics.add.sprite(400, 300, 'triangle');
+        answer = "triangle";
     }else{
         rand_shape = this.physics.add.sprite(400, 300, 'square');
+        answer = "square";
     }
 }
 
-function update ()
-{
-    var sprite;
+function update (){
+    if (this.input.mouse.manager.activePointer.isDown){
+        if (this.input.y<=150){
+            if (this.input.x<=150){
+                if(answer == "circle"){
+                    console.log(correct)
+                    correct = true;
+                    movement = true;
+                }
+            }else if (this.input.x >350 && this.input.x<=450){
+                if (answer == "triangle"){
+                    console.log(correct)
+                    correct = true;
+                    movement = true;
+                }
+            }else if (this.input.x >650 && this.input.x<=750){
+                if (answer =="square"){
+                    console.log(correct)
+                    correct = true;
+                    movement = true;
+                }
+            }
+        }
+    }
+    var sprite={};
     if (correct){
         if (answer == "circle"){
             sprite=circle;
         }else if(answer=="square"){
             sprite=square;
-        }else{
+        }else if (answer=="triangle"){
             sprite=triangle;
         }
     }
+
     if (movement){
         if (up_direction){
             if (sprite.y>=70){
@@ -88,11 +115,15 @@ function update ()
         }else{
             if (sprite.y>=100){
                 movement = false;
+                complete_jump = true;
             }
             sprite.y+=3;
         }
     }
-    if (!movement){
+
+    if (complete_jump){
+        complete_jump = false;
+        console.log("here");
         rand_shape.destroy();
         var rand_num = Math.floor((Math.random() * 3));
         if (rand_num==0){
@@ -105,10 +136,14 @@ function update ()
             rand_shape = this.physics.add.sprite(400, 300, 'square');
             answer = "square";
         }
-        movement = true;
+        console.log("here2")
+        movement = false;
+        correct = false;
         up_direction = true;
+        console.log(correct);
 
     }
+
 }
 
 function rand_sprite_generator(game){

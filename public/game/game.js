@@ -93,21 +93,24 @@ function update (){
         arrow = this.physics.add.sprite(400, 300, 'arrow-right');
     }
     if (this.input.mouse.manager.activePointer.isDown){
+        arrow.destroy();
         if (this.input.y<=150){
             if (this.input.x<=150){
-
+                arrow = this.physics.add.sprite(400, 300, 'arrow-left');
                 if(answer == "circle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
             }else if (this.input.x >350 && this.input.x<=450){
+                arrow = this.physics.add.sprite(400, 300, 'arrow');
                 if (answer == "triangle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
             }else if (this.input.x >650 && this.input.x<=750){
+                arrow = this.physics.add.sprite(400, 300, 'arrow-right');
                 if (answer =="square"){
                     console.log(correct)
                     correct = true;

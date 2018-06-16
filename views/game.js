@@ -28,7 +28,8 @@ var game = new Phaser.Game(config);
 var circle;
 var triangle;
 var square;
-var direction = true;
+var rand_shape;
+var up_direction = true;
 var movement = true;
 var correct = true;
 var answer = "triangle";
@@ -53,6 +54,15 @@ function create ()
     square = this.physics.add.sprite(700, 100, 'square');
 
     ding = this.sound.add('ding');
+
+    var rand_num = Math.floor((Math.random() * 3));
+    if (rand_num==0){
+        rand_shape = this.physics.add.sprite(400, 300, 'circle');
+    }else if (rand_num==1){
+        rand_shape = this.physics.add.sprite(400, 300, 'triangle');
+    }else{
+        rand_shape = this.physics.add.sprite(400, 300, 'square');
+    }
 }
 
 function update ()
@@ -68,19 +78,46 @@ function update ()
         }
     }
     if (movement){
-
-        if (direction){
+        if (up_direction){
             if (sprite.y>=70){
                 sprite.y-=3;
             }else{
                 ding.play();
-                direction =!direction;
+                up_direction =!up_direction;
             }
         }else{
             if (sprite.y>=100){
-                direction = !direction;
+                movement = false;
             }
             sprite.y+=3;
         }
+    }
+    if (!movement){
+        rand_shape.destroy();
+        var rand_num = Math.floor((Math.random() * 3));
+        if (rand_num==0){
+            rand_shape = this.physics.add.sprite(400, 300, 'circle');
+            answer = "circle";
+        }else if (rand_num==1){
+            rand_shape = this.physics.add.sprite(400, 300, 'triangle');
+            answer = "triangle";
+        }else{
+            rand_shape = this.physics.add.sprite(400, 300, 'square');
+            answer = "square";
+        }
+        movement = true;
+        up_direction = true;
+
+    }
+}
+
+function rand_sprite_generator(game){
+    var rand_num = Math.floor((Math.random() * 3));
+    if (rand_num==0){
+        rand_shape = this.physics.add.sprite(400, 300, 'circle');
+    }else if (rand_num==1){
+        rand_shape = this.physics.add.sprite(400, 300, 'triangle');
+    }else{
+        rand_shape = this.physics.add.sprite(400, 300, 'square');
     }
 }

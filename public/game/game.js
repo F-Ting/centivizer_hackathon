@@ -39,6 +39,7 @@ var ding;
 var slider_position = 30;
 var is_lever_down = false;
 var complete_jump = false;
+var arrow;
 
 
 function act_on_position(position) {
@@ -52,6 +53,9 @@ function preload ()
     this.load.image('square', '../assets/square.png');
     this.load.image('circle', '../assets/circle.png');
     this.load.image('triangle', '../assets/triangle.png');
+    this.load.image('arrow', '../assets/arrow.png');
+    this.load.image('arrow-left', '../assets/arrow-left.png');
+    this.load.image('arrow-right', '../assets/arrow-right.png');
     this.load.audio('ding', ['../assets/ding.mp3']);
 }
 
@@ -62,18 +66,19 @@ function create ()
     circle = this.physics.add.sprite(100, 100, 'circle');
     triangle = this.physics.add.sprite(400, 100, 'triangle');
     square = this.physics.add.sprite(700, 100, 'square');
+    arrow = this.physics.add.sprite(400, 300, 'arrow');
 
     ding = this.sound.add('ding');
 
     var rand_num = Math.floor((Math.random() * 3));
     if (rand_num==0){
-        rand_shape = this.physics.add.sprite(400, 300, 'circle');
+        rand_shape = this.physics.add.sprite(400, 500, 'circle');
         answer = "circle";
     }else if (rand_num==1){
-        rand_shape = this.physics.add.sprite(400, 300, 'triangle');
+        rand_shape = this.physics.add.sprite(400, 500, 'triangle');
         answer = "triangle";
     }else{
-        rand_shape = this.physics.add.sprite(400, 300, 'square');
+        rand_shape = this.physics.add.sprite(400, 500, 'square');
         answer = "square";
     }
 }
@@ -103,19 +108,23 @@ function update (){
             }
         }
     }else if (is_lever_down) {
+        arrow.destroy();
             if (slider_position<=20){
+                arrow = this.physics.add.sprite(400, 300, 'arrow-left');
                 if(answer == "circle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
             }else if (slider_position <=45){
+                arrow = this.physics.add.sprite(400, 300, 'arrow');
                 if (answer == "triangle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
             }else if (slider_position>40){
+                arrow = this.physics.add.sprite(400, 300, 'arrow-right');
                 if (answer =="square"){
                     console.log(correct)
                     correct = true;
@@ -158,13 +167,13 @@ function update (){
         rand_shape.destroy();
         var rand_num = Math.floor((Math.random() * 3));
         if (rand_num==0){
-            rand_shape = this.physics.add.sprite(400, 300, 'circle');
+            rand_shape = this.physics.add.sprite(400, 500, 'circle');
             answer = "circle";
         }else if (rand_num==1){
-            rand_shape = this.physics.add.sprite(400, 300, 'triangle');
+            rand_shape = this.physics.add.sprite(400, 500, 'triangle');
             answer = "triangle";
         }else{
-            rand_shape = this.physics.add.sprite(400, 300, 'square');
+            rand_shape = this.physics.add.sprite(400, 500, 'square');
             answer = "square";
         }
         console.log("here2")

@@ -5,21 +5,24 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 }
+            // gravity: { y: 200 }
         }
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update:update
     }
 };
 var game = new Phaser.Game(config);
+var circle;
+var triangle;
+var square;
+var direction = true;
 
 function preload ()
 {
-    //this.load.setBaseURL('http://labs.phaser.io');
 
-    //this.load.image('sky', 'assets/skies/space3.png');
     this.load.image('sky', './assets/background.png')
     this.load.image('square', './assets/square.png');
     this.load.image('circle', './assets/circle.png');
@@ -30,8 +33,28 @@ function preload ()
 function create ()
 {
     this.add.image(400, 300, 'sky');
-    this.add.image(100,100,'circle');
-    this.add.image(400,100,'triangle');
-    this.add.image(700,100,'square');
 
+    circle = this.physics.add.sprite(100, 100, 'circle');
+    triangle = this.physics.add.sprite(400, 100, 'triangle');
+    square = this.physics.add.sprite(700, 100, 'square');
+
+}
+
+function update ()
+{
+    cursors = this.input.keyboard.createCursorKeys();
+    if (cursors.up.isDown){
+        if (direction){
+            if (circle.y>=70){
+                circle.y-=3;
+            }else{
+                direction =!direction;
+            }
+        }else{
+            if (circle.y>=100){
+                direction = !direction;
+            }
+            circle.y+=3;
+        }
+    }
 }

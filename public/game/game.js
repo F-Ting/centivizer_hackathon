@@ -140,10 +140,19 @@ function update (){
     }
     var sprite={};
     if (correct){
+        if (rand_shape.y>100){
+            rand_shape.y-=50;
+        }
         if (answer == "circle"){
             sprite=circle;
+            if (rand_shape.x>100){
+                rand_shape.x-=100;
+            }
         }else if(answer=="square"){
             sprite=square;
+            if (rand_shape.x<700){
+                rand_shape.x+=100;
+            }
         }else if (answer=="triangle"){
             sprite=triangle;
         }

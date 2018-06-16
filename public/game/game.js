@@ -46,6 +46,8 @@ var one;
 var two;
 var three;
 var number;
+var num_tries = 0;
+var num_correct = 0;
 
 
 function act_on_position(position) {
@@ -105,6 +107,7 @@ function update (){
         arrow = this.physics.add.sprite(400, 300, 'arrow-right');
     }
     if (this.input.mouse.manager.activePointer.isDown && frame_rate==0){
+        num_tries++;
         rand_shape = this.physics.add.sprite(400, 500, answer);
         arrow.destroy();
         if (this.input.y<=150){
@@ -132,6 +135,7 @@ function update (){
             }
         }
     }else if (is_lever_down && frame_rate==0) {
+        num_tries++;
         rand_shape = this.physics.add.sprite(400, 500, answer);
             if (slider_position<=20){
 
@@ -157,6 +161,7 @@ function update (){
     }
     var sprite={};
     if (correct){
+        num_correct++;
         frame_rate=300;
         number = this.physics.add.sprite(400, 550, 'three');
         if (rand_shape.y>100){

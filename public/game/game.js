@@ -42,6 +42,10 @@ var is_lever_down = false;
 var complete_jump = false;
 var arrow;
 var frame_rate = 300;
+var one;
+var two;
+var three;
+var number;
 
 
 function act_on_position(position) {
@@ -60,6 +64,9 @@ function preload ()
     this.load.image('arrow-right', '../assets/arrow-right.png');
     this.load.audio('ding', ['../assets/ding.mp3']);
     this.load.audio('countdown', ['../assets/countdown.mp3']);
+    this.load.image('one', '../assets/one.png');
+    this.load.image('two', '../assets/two.png');
+    this.load.image('three', '../assets/three.png');
 }
 
 function create ()
@@ -70,19 +77,20 @@ function create ()
     triangle = this.physics.add.sprite(400, 100, 'triangle');
     square = this.physics.add.sprite(700, 100, 'square');
     arrow = this.physics.add.sprite(400, 300, 'arrow');
+    number = this.physics.add.sprite(400, 550, 'three');
 
     ding = this.sound.add('ding');
     countdown = this.sound.add('countdown');
 
     var rand_num = Math.floor((Math.random() * 3));
     if (rand_num==0){
-        rand_shape = this.physics.add.sprite(400, 500, 'circle');
+        rand_shape = this.physics.add.sprite(400, 400, 'circle');
         answer = "circle";
     }else if (rand_num==1){
-        rand_shape = this.physics.add.sprite(400, 500, 'triangle');
+        rand_shape = this.physics.add.sprite(400, 400, 'triangle');
         answer = "triangle";
     }else{
-        rand_shape = this.physics.add.sprite(400, 500, 'square');
+        rand_shape = this.physics.add.sprite(400, 400, 'square');
         answer = "square";
     }
 }
@@ -150,6 +158,7 @@ function update (){
     var sprite={};
     if (correct){
         frame_rate=300;
+        number = this.physics.add.sprite(400, 550, 'three');
         if (rand_shape.y>100){
             rand_shape.y-=16;
         }
@@ -190,13 +199,13 @@ function update (){
         rand_shape.destroy();
         var rand_num = Math.floor((Math.random() * 3));
         if (rand_num==0){
-            rand_shape = this.physics.add.sprite(400, 500, 'circle');
+            rand_shape = this.physics.add.sprite(400, 400, 'circle');
             answer = "circle";
         }else if (rand_num==1){
-            rand_shape = this.physics.add.sprite(400, 500, 'triangle');
+            rand_shape = this.physics.add.sprite(400, 400, 'triangle');
             answer = "triangle";
         }else{
-            rand_shape = this.physics.add.sprite(400, 500, 'square');
+            rand_shape = this.physics.add.sprite(400, 400, 'square');
             answer = "square";
         }
         movement = false;
@@ -205,22 +214,18 @@ function update (){
     }
 
     if (frame_rate==0){
+        number.destroy();
         rand_shape.destroy();
     }else{
         frame_rate--;
         if ((frame_rate%100)==0){
             countdown.play();
+            number.destroy();
+            if ((frame_rate/100)==2){
+                number = this.physics.add.sprite(400, 550, 'two');
+            }else if ((frame_rate/100)==1){
+                number = this.physics.add.sprite(400, 550, 'one');
+            }
         }
-    }
-}
-
-function rand_sprite_generator(game){
-    var rand_num = Math.floor((Math.random() * 3));
-    if (rand_num==0){
-        rand_shape = this.physics.add.sprite(400, 300, 'circle');
-    }else if (rand_num==1){
-        rand_shape = this.physics.add.sprite(400, 300, 'triangle');
-    }else{
-        rand_shape = this.physics.add.sprite(400, 300, 'square');
     }
 }

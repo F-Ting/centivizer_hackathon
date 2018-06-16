@@ -48,6 +48,8 @@ var three;
 var number;
 var num_tries = 0;
 var num_correct = 0;
+var button;
+var spacial = false;
 
 
 function act_on_position(position) {
@@ -56,7 +58,7 @@ function act_on_position(position) {
 
 function preload ()
 {
-
+    this.load.image('button', '../assets/button.png');
     this.load.image('sky', '../assets/background.png')
     this.load.image('square', '../assets/square.png');
     this.load.image('circle', '../assets/circle.png');
@@ -80,6 +82,7 @@ function create ()
     square = this.physics.add.sprite(700, 100, 'square');
     arrow = this.physics.add.sprite(400, 300, 'arrow');
     number = this.physics.add.sprite(400, 550, 'three');
+    button = this.physics.add.sprite(700, 550, 'button');
 
     ding = this.sound.add('ding');
     countdown = this.sound.add('countdown');
@@ -220,8 +223,8 @@ function update (){
     }
 
     if (frame_rate==0){
-        number.destroy();
         rand_shape.destroy();
+        number.destroy();
     }else{
         frame_rate--;
         if ((frame_rate%100)==0){

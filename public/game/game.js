@@ -48,8 +48,6 @@ var three;
 var number;
 var num_tries = 0;
 var num_correct = 0;
-var button;
-var spacial = false;
 
 
 function act_on_position(position) {
@@ -58,7 +56,6 @@ function act_on_position(position) {
 
 function preload ()
 {
-    this.load.image('button', '../assets/button.png');
     this.load.image('sky', '../assets/background.png')
     this.load.image('square', '../assets/square.png');
     this.load.image('circle', '../assets/circle.png');
@@ -82,7 +79,6 @@ function create ()
     square = this.physics.add.sprite(700, 100, 'square');
     arrow = this.physics.add.sprite(400, 300, 'arrow');
     number = this.physics.add.sprite(400, 550, 'three');
-    button = this.physics.add.sprite(700, 550, 'button');
 
     ding = this.sound.add('ding');
     countdown = this.sound.add('countdown');
@@ -102,9 +98,9 @@ function create ()
 
 function update (){
     arrow.destroy();
-    if (slider_position<=-10){
+    if (slider_position<=15){
         arrow = this.physics.add.sprite(400, 300, 'arrow-left');
-    }else if (slider_position <=0){
+    }else if (slider_position <35){
         arrow = this.physics.add.sprite(400, 300, 'arrow');
     }else{
         arrow = this.physics.add.sprite(400, 300, 'arrow-right');
@@ -140,20 +136,20 @@ function update (){
     }else if (is_lever_down && frame_rate==0) {
         number.destroy();
         rand_shape = this.physics.add.sprite(400, 500, answer);
-            if (slider_position<=-10){
+            if (slider_position<=15){
 
                 if(answer == "circle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
-            }else if (slider_position <=0){
+            }else if (slider_position <=35){
                 if (answer == "triangle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
-            }else if (slider_position>10){
+            }else{
                 if (answer =="square"){
                     console.log(correct)
                     correct = true;

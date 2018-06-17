@@ -20,7 +20,7 @@ var socket = io('http://192.168.0.100:3000');
 
         //The code below displays a black rectangle on the right side of the screen
         socket.on('wheel right', function(msg){
-
+            console.log(msg)
       context.fillStyle="white";
           context.fillRect(0,0,width,height);
       context.fillStyle="black";
@@ -30,7 +30,7 @@ var socket = io('http://192.168.0.100:3000');
 
         //The code below displays a black rectangle on the left side of the screen
     socket.on('wheel left', function(msg){
-
+        console.log(msg)
       context.fillStyle="white";
           context.fillRect(0,0,width,height);
       context.fillStyle="black";

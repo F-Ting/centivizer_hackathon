@@ -102,9 +102,9 @@ function create ()
 
 function update (){
     arrow.destroy();
-    if (slider_position<=20){
+    if (slider_position<=-10){
         arrow = this.physics.add.sprite(400, 300, 'arrow-left');
-    }else if (slider_position <=45){
+    }else if (slider_position <=0){
         arrow = this.physics.add.sprite(400, 300, 'arrow');
     }else{
         arrow = this.physics.add.sprite(400, 300, 'arrow-right');
@@ -140,20 +140,20 @@ function update (){
     }else if (is_lever_down && frame_rate==0) {
         number.destroy();
         rand_shape = this.physics.add.sprite(400, 500, answer);
-            if (slider_position<=20){
+            if (slider_position<=-10){
 
                 if(answer == "circle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
-            }else if (slider_position <=45){
+            }else if (slider_position <=0){
                 if (answer == "triangle"){
                     console.log(correct)
                     correct = true;
                     movement = true;
                 }
-            }else if (slider_position>40){
+            }else if (slider_position>10){
                 if (answer =="square"){
                     console.log(correct)
                     correct = true;

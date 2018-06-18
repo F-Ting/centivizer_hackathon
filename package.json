@@ -6,15 +6,23 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@types/eventemitter3": "^2.0.2",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "^2.6.1",
+    "eventemitter3": "^3.1.0",
     "express": "~4.15.5",
+    "flow": "^0.2.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "phaser": "^3.10.1",
     "serve-favicon": "~2.4.5",
     "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.74.0"
   }
 }

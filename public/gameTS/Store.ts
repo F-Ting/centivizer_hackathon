@@ -1,7 +1,7 @@
 import * as EventEmitter from 'eventemitter3'
 
-export class Store<T> extends EventEmitter {
-  constructor(public ctx: T) {
+export class Store extends EventEmitter {
+  constructor(public ctx) {
     super()
   }
 
